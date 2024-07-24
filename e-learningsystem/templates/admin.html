@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+</head>
+<body>
+    <?php include '../templates/header.php'; ?>
+    <div class="container">
+        <h2>Admin Dashboard</h2>
+
+        <div class="tabs">
+            <button class="tab-link" onclick="openTab(event, 'VerifyUsers')">Verify Users</button>
+            <button class="tab-link" onclick="openTab(event, 'ListDeleteUsers')">Manage Users</button>
+            <button class="tab-link" onclick="openTab(event, 'ManageColleges')">Manage Colleges</button>
+        </div>
+
+        <!-- Verify Users Tab -->
+        <div id="VerifyUsers" class="tab-content">
+            <h3>Verify Users</h3>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach ($users_verify as $user): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($user['username']); ?></td>
+                        <td>
+                            <form action="../src/verify_handler.php" method="post">
+                                <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                <button type="submit" class="action-button">Verify</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
+        <!-- Manage Users Tab -->
+        <div id="ListDeleteUsers" class="tab-content" style="display:none;">
+            <h3>Manage Users</h3>
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach ($users_list as $user): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($user['username']); ?></td>
+                        <td>
+                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                <input type="hidden" name="delete_user" value="<?php echo $user['id']; ?>">
+                                <button type="submit" class="action-button delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
+        <!-- Manage Colleges Tab -->
+        <div id="ManageColleges" class="tab-content" style="display:none;">
+            <h3>Manage Colleges</h3>
+
+            <!-- Add New College Form -->
+            <div class="add-college">
+                <h4>Add New College</h4>
+                <form action="../src/add_college.php" method="post">
+                    <div class="form-group">
+                        <label for="college_name">Name:</label>
+                        <input type="text" id="college_name" name="college_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_location">Location:</label>
+                        <input type="text" id="college_location" name="college_location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_category">Category:</label>
+                        <input type="text" id="college_category" name="college_category" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_rank">Rank:</label>
+                        <input type="number" id="college_rank" name="college_rank" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_rating">Rating:</label>
+                        <input type="number" step="0.01" id="college_rating" name="college_rating" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_seats">Total Seats:</label>
+                        <input type="number" id="college_seats" name="college_seats" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_established">Established Year:</label>
+                        <input type="text" id="college_established" name="college_established" placeholder="YYYY" pattern="[0-9]{4}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_type">Type:</label>
+                        <input type="text" id="college_type" name="college_type" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_contact">Contact Number:</label>
+                        <input type="text" id="college_contact" name="college_contact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="college_description">Description:</label>
+                        <textarea id="college_description" name="college_description" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="action-button">Add College</button>
+                </form>
+            </div>
+
+            <!-- List and Delete Colleges -->
+            <div class="list-colleges">
+                <h4>List of Colleges</h4>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Category</th>
+                        <th>Rank</th>
+                        <th>Rating</th>
+                        <th>Total Seats</th>
+                        <th>Established Year</th>
+                        <th>Type</th>
+                        <th>Contact Number</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php foreach ($colleges as $college): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($college['name']); ?></td>
+                            <td><?php echo htmlspecialchars($college['location']); ?></td>
+                            <td><?php echo htmlspecialchars($college['category']); ?></td>
+                            <td><?php echo htmlspecialchars($college['rank']); ?></td>
+                            <td><?php echo htmlspecialchars($college['rating']); ?></td>
+                            <td><?php echo htmlspecialchars($college['total_seats']); ?></td>
+                            <td><?php echo htmlspecialchars($college['established_year']); ?></td>
+                            <td><?php echo htmlspecialchars($college['type']); ?></td>
+                            <td><?php echo htmlspecialchars($college['contact_no']); ?></td>
+                            <td><?php echo htmlspecialchars($college['description']); ?></td>
+                            <td>
+                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                    <input type="hidden" name="delete_college" value="<?php echo $college['id']; ?>">
+                                    <button type="submit" class="action-button delete-button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <?php include '../templates/footer.php'; ?>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    background-color: #f4f4f4;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-link:hover {
+    background-color: #ddd;
+}
+
+.tab-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Form styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical; /* Allow vertical resizing of textarea */
+}
+
+button.action-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.action-button:hover {
+    background-color: #0056b3;
+}
+
+button.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+button.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+/* Manage Colleges Form Styles */
+
+.manage-colleges {
+    margin-top: 20px;
+}
+
+.manage-colleges h3 {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.college-form {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.college-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.college-form input[type="text"],
+.college-form input[type="number"],
+.college-form input[type="email"],
+.college-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.college-form textarea {
+    resize: vertical;
+    min-height: 100px; /* Adjust as needed */
+}
+
+.college-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.college-form button:hover {
+    background-color: #0056b3;
+}
+
+/* College Table Styles */
+.college-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: auto; /* Enable scrolling for the table */
+    max-height: 400px; /* Adjust max height as per your requirement */
+}
+
+.college-table th,
+.college-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.college-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+
+.college-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.college-actions button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.college-actions button:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 600px) {
+    .college-form input[type="text"],
+    .college-form input[type="number"],
+    .college-form input[type="email"],
+    .college-form textarea {
+        padding: 8px;
+    }
+
+    .college-form button {
+        padding: 8px 16px;
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-link {
+        margin-bottom: 10px;
+    }
+
+    .tab-link:last-child {
+        margin-bottom: 0;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    textarea {
+        padding: 8px;
+    }
+
+    button.action-button {
+        padding: 8px 16px;
+    }
+}
+.add-college {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+.add-college h4 {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.add-college .form-group {
+    margin-bottom: 20px; /* Adjust margin between form groups */
+}
+
+.add-college label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.add-college input[type="text"],
+.add-college input[type="number"],
+.add-college input[type="email"],
+.add-college textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.add-college textarea {
+    resize: vertical; /* Allow vertical resizing of textarea */
+    min-height: 100px; /* Adjust as needed */
+}
+
+.add-college button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-college button:hover {
+    background-color: #0056b3;
+}
+/* Adjust footer margin to create space */
+footer {
+    margin-top: 20px; /* Adjust as needed */
+    padding: 10px; /* Example padding for footer */
+    background-color: #f4f4f4;
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .college-table {
+        max-height: none; /* Reset max height for smaller screens if needed */
+    }
+}
