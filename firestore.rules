@@ -1,0 +1,58 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Function to check if user is an admin
+    function isAdmin() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Users collection rules
+    match /users/{userId} {
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && request.auth.uid == userId && 
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['username', 'profileDp', 'address', 'mobileNo', 'aadharNo', 'panCardNo', 'voterIdNo', 'age', 'gender', 'constituency']);
+      allow delete: if isAdmin();
+    }
+
+    // Votes collection rules
+    match /votes/{voteId} {
+      // Anyone authenticated can read votes
+      allow read: if isAuthenticated();
+      
+      // Only admins can create, update, or delete votes
+      allow create, delete: if isAdmin();
+      
+      // Allow updating vote counts by authenticated users
+      allow update: if isAuthenticated() && 
+        // Only allow updating numeric values (vote counts)
+        request.resource.data.keys().hasAll(['title']) &&
+        resource.data.title == request.resource.data.title &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(resource.data.keys().removeAll(['title']));
+    }
+
+    // User voting history rules
+    match /voting_history/{historyId} {
+      allow read: if isAuthenticated() && 
+        request.auth.uid == resource.data.userId;
+      allow create: if isAuthenticated() && 
+        request.auth.uid == request.resource.data.userId;
+      allow update, delete: if false;
+    }
+
+    // Default deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 
